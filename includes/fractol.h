@@ -102,5 +102,5 @@ double get_y_min_ratio(t_draw *data, double x, double y);
 int burningShip(t_draw *data);
 void handle_error(int error_code, t_draw *data);
 int color_value_burningShip(t_draw *data);
-
+void	handle_view_iteration(int keycode, t_draw *data);
 #endif
