@@ -65,12 +65,15 @@ int ft_create_img (t_draw *data)
 {
   char *title_mandelbrot = "Mandelbrot Fractal";
   char *title_julia = "Julia Fractal";
+  char *title_ship = "BurningShip Fractal";
   char *title;
   title = title_mandelbrot;
-  if (data->is_mandelbrot == 0 || data->is_julia == 0)
+  if (data->is_mandelbrot == 0 || data->is_julia == 0 ||data->is_burningShip == 0)
   {
     if (data->is_julia == 0)
       title = title_julia;
+    else if (data->is_burningShip == 0)
+      title = title_ship;
     data->win_ptr = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, title);
     if (!data->win_ptr)
       return (2);
@@ -90,17 +93,13 @@ int ft_put_fractal(int ac, char **av, t_draw *data)
   data->y_max = 2;
   data->x_min = -2;
   data->y_min = -2;
-  data->iter = 50;
+  data->iter = 70;
   if (data->is_julia == 0)
     julia_set(data, 0x00000);
   else if (data->is_mandelbrot == 0)
-  {
-    data->x_max = 2;
-    data->x_min = -2;
-    data->y_max = 2;
-    data->y_min = -2;
     mandelbrot(data);
-  }
+  else if (data->is_burningShip == 0)
+    burningShip(data);
   mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
   return (0);
 }
@@ -108,18 +107,18 @@ int ft_events(t_draw *data)
 {
   if (data->is_julia >= 0)
       data->c = (t_complex){d_atoi(data->av[2]), d_atoi(data->av[3])};
-    data->mlx_ptr = mlx_init();
-    if (!data->mlx_ptr)
-      return (1);
-    if (ft_create_img(data) != 0)
-      return (2);
-    if (ft_put_fractal(data->ac, data->av, data) != 0)
-      return (3);
-    mlx_mouse_hook(data->win_ptr, mouse_event, data);
-    mlx_hook(data->win_ptr, 17, 0, close_win, data);
-    mlx_key_hook(data->win_ptr, pressed_key_event, data);
-    mlx_loop(data->mlx_ptr);
-    return (0);
+  data->mlx_ptr = mlx_init();
+  if (!data->mlx_ptr)
+    return (1);
+  if (ft_create_img(data) != 0)
+    return (2);
+  if (ft_put_fractal(data->ac, data->av, data) != 0)
+    return (3);
+  mlx_mouse_hook(data->win_ptr, mouse_event, data);
+  mlx_hook(data->win_ptr, 17, 0, close_win, data);
+  mlx_key_hook(data->win_ptr, pressed_key_event, data);
+  mlx_loop(data->mlx_ptr);
+  return (0);
 }
 int main(int ac, char **av) 
 {
@@ -128,6 +127,7 @@ int main(int ac, char **av)
 
     mlx_data.is_julia = -1;
     mlx_data.is_mandelbrot = -1;
+    mlx_data.is_burningShip = -1;
     mlx_data.ac = ac;
     mlx_data.av = av;  
     if (ac == 2  || ac == 4)
@@ -136,8 +136,10 @@ int main(int ac, char **av)
         mlx_data.is_julia = 0;
       else if (ac == 2 && strcmp("mandelbrot", av[1]) == 0)
         mlx_data.is_mandelbrot = 0;
+      else if (ac == 2 && strcmp("burningship", av[1]) == 0)
+        mlx_data.is_burningShip = 0;
     }
-    if (mlx_data.is_mandelbrot == 0 || mlx_data.is_julia == 0)
+    if (mlx_data.is_mandelbrot == 0 || mlx_data.is_julia == 0 || mlx_data.is_burningShip == 0)
     {
         error_code = ft_events(&mlx_data);
         if(error_code != 0)
@@ -147,6 +149,7 @@ int main(int ac, char **av)
       write(1, "Availabe parameters : \njulia real_number imaginary_number.\nmandelbrot\nBurningship\n", 83);
     return (0);
 }
+
 
 void handle_error(int error_code, t_draw *data)
 {

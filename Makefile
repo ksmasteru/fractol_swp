@@ -14,7 +14,8 @@ SRCS_B		= 	srcs_bonus/main_bonus.c \
 				srcs_bonus/keyboard_hooks_bonus.c \
 				srcs_bonus/julia_set_bonus.c \
 				srcs_bonus/events_bonus.c \
-				srcs_bonus/double_atoi.c
+				srcs_bonus/double_atoi.c	\
+				srcs_bonus/burningship.c
 
 NAME		= fractol
 NAME_B		= fractol_bonus

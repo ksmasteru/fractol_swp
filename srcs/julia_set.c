@@ -28,12 +28,12 @@ int calculate_color_value(int x, int y, t_draw *data)
     double a;
     double b;
     
-    i = -1;
+    i = 0;
     z.real = data->x_min + ((data->x_max  - data->x_min) / (double)(WIDTH) * x);
     z.img =  data->y_max + ((data->y_min - data->y_max) / (double)HEIGHT * y);
     a = z.real * z.real;
     b = z.img * z.img; 
-    while ((a + b) < 4 && ++i < data->iter)
+    while ((a + b) < 4 && i++ < data->iter)
 	{
 	    square_z = z;
 		z.real = (a - b) + data->c.real;

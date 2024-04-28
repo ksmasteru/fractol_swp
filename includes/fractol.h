@@ -58,6 +58,7 @@ typedef struct s_draw{
   double iter;
   int is_julia;
   int is_mandelbrot;
+  int is_burningShip;
   int ac;
   char **av;
 }t_draw;
@@ -98,6 +99,8 @@ double get_x_min_ratio(t_draw *data, double x, double y);
 double get_x_max_ratio(t_draw *data, double x, double y);
 double get_y_max_ratio(t_draw *data, double x, double y);
 double get_y_min_ratio(t_draw *data, double x, double y);
+int burningShip(t_draw *data);
 void handle_error(int error_code, t_draw *data);
+int color_value_burningShip(t_draw *data);
 
 #endif
