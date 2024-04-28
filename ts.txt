@@ -1,0 +1,4 @@
+seg fault when x clicked
+norminette
+flags
+nBurningship

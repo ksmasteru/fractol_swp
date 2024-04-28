@@ -52,5 +52,4 @@ void shift_view_y(int keycode , t_draw *data)
             data->y_min += y_offset;
         }
     }
-
 }

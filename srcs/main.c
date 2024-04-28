@@ -91,13 +91,8 @@ int ft_put_fractal(int ac, char **av, t_draw *data)
   data->x_min = -2;
   data->y_min = -2;
   data->iter = 50;
-  if (data->is_julia == 0)
-  {
-    data->c = (t_complex){d_atoi(data->av[2]), d_atoi(data->av[3])};
-    if ((data->c.real >= double max) || (data->c.img >= double max))
-      return (3);  
+  if (data->is_julia >= 0)
     julia_set(data, 0x00000);
-  }
   else if (data->is_mandelbrot == 0)
   {
     data->x_max = 2;
@@ -111,8 +106,10 @@ int ft_put_fractal(int ac, char **av, t_draw *data)
 }
 int ft_events(t_draw *data)
 {
+    if (data->is_julia >= 0)
+      data->c = (t_complex){d_atoi(data->av[2]), d_atoi(data->av[3])};
     data->mlx_ptr = mlx_init();
-    if (data->mlx_ptr)
+    if (!data->mlx_ptr)
       return (1);
     if (ft_create_img(data) != 0)
       return (2);
@@ -132,7 +129,7 @@ int main(int ac, char **av)
     mlx_data.is_julia = -1;
     mlx_data.is_mandelbrot = -1;
     mlx_data.ac = ac;
-    mlx_data.av = av;  
+    mlx_data.av = av;
     if (ac == 2  || ac == 4)
     {
       if (ac == 4 &&  strcmp("julia", av[1]) == 0)
@@ -144,12 +141,13 @@ int main(int ac, char **av)
     {
         error_code = ft_events(&mlx_data);
         if(error_code != 0)
-          handle_error(error_code); /*handle errors*/
+          handle_error(error_code, &mlx_data);
     }
     else
-      ft_printf(1, "Availabe parameters : \njulia real_number imaginary_number.\nmandelbrot\nBurningship\n");
+      printf("Availabe parameters : \njulia real_number imaginary_number.\nmandelbrot\nBurningship\n");
     return (0);
 }
+
 
 void handle_error(int error_code, t_draw *data)
 {
@@ -157,7 +155,5 @@ void handle_error(int error_code, t_draw *data)
     write(2, "MLX_INIT ERROR\n",15);
   else if (error_code == 2)
     write(2, "MLX_WIN ERROR\n", 15);
-  else if (error_code == 3)
-    write(2, "invalid argument for julia\n", 29);
 
 }

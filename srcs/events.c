@@ -5,7 +5,7 @@ int mouse_event(int button, int x, int y, t_draw *data)
   if (button == 2 || button == 1)
   {
     if (button == 2)
-      zoom_in(x, y, button, data);
+      zoom_in(data);
     else
       zoom_out(data);
   }
@@ -26,18 +26,23 @@ int mouse_event(int button, int x, int y, t_draw *data)
   return (0);
 }
 
-int close_win(int keycode, t_draw *draw)
-{
-	exit(0);
-	return (0);
+int close_win(t_draw *data)
+{ 
+  		mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
+    mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+    mlx_destroy_display(data->mlx_ptr);
+    free(data->mlx_ptr);
+		exit(0);
 }
 
 int pressed_key_event(int keycode, t_draw *data)
 {
   if (keycode == XK_Escape)
 	{
-    free(data->mlx_ptr);/*linux*/
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+		mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
+    mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+    mlx_destroy_display(data->mlx_ptr);
+    free(data->mlx_ptr);
 		exit(0);
 	}
 	return (0);
@@ -68,5 +73,3 @@ double zoom_out(t_draw *data)
   data->x_min = (data->x_min) - zoom_x_offset;
   data->y_max = (data->y_max) + zoom_y_offset;
 }
-
-
