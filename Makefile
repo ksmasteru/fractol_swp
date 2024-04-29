@@ -27,13 +27,13 @@ OBJS_B		= $(SRCS_B:.c=.o)
 OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 CC			= gcc
-CC_FLAGS	= -g
+CC_FLAGS	= -g -Wall -Werror -Wextra
 MLB_FLAGS	= -I -g3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm
 
 $(OBJS_DIR)%.o : %.c includes/fractol.h
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)srcs
-	@$(CC) -g -c $< -o $@
+	@$(CC) $(CC_FLAGS) -c $< -o $@
 
 $(OBJS_DIR_B)%.o : %.c includes/fractol.h
 	@mkdir -p $(OBJS_DIR_B)
@@ -41,7 +41,7 @@ $(OBJS_DIR_B)%.o : %.c includes/fractol.h
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 
 $(NAME): $(OBJECTS_PREFIXED) maker
-	@$(CC) -g -o $(NAME) $(OBJECTS_PREFIXED) $(MLB_FLAGS)
+	@$(CC) $(CC_FLAGS) -o $(NAME) $(OBJECTS_PREFIXED) $(MLB_FLAGS)
 
 $(NAME_B): $(OBJECTS_PREFIXED_B) maker
 	@$(CC) -o $(NAME_B) $(OBJECTS_PREFIXED_B) $(CC_FLAGS) $(MLB_FLAGS)

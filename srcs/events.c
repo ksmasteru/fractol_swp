@@ -2,14 +2,15 @@
 
 int	mouse_event(int button, int x, int y, t_draw *data)
 {
+	x++;
+	y++;
 	if (button == 5 || button == 4)
 	{
 		if (button == 5)
 			zoom_in(data);
 		else
 			zoom_out(data);
-		if (data->is_julia >= 0 || data->is_mandelbrot >= 0
-			|| data->is_burningShip >= 0)
+		if (data->is_julia >= 0 || data->is_mandelbrot >= 0)
 		{
 			if (ft_create_img(data) == 1)
 				return (1);
@@ -17,8 +18,6 @@ int	mouse_event(int button, int x, int y, t_draw *data)
 				julia_set(data, 0xffffff);
 			else if (data->is_mandelbrot >= 0)
 				mandelbrot(data);
-			else
-				burningShip(data);
 			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 				data->img.mlx_img, 0, 0);
 		}
@@ -53,8 +52,8 @@ double	zoom_in(t_draw *data)
 	double	zoom_x_offset;
 	double	zoom_y_offset;
 
-	zoom_x_offset = 100 * fabs((data->x_max - data->x_min) / WIDTH);
-	zoom_y_offset = 100 * fabs((data->y_max - data->y_min) / HEIGHT);
+	zoom_x_offset = 20 * fabs((data->x_max - data->x_min) / WIDTH);
+	zoom_y_offset = 20 * fabs((data->y_max - data->y_min) / HEIGHT);
 	data->x_max = (data->x_max) - zoom_x_offset;
 	data->y_min = (data->y_min) + zoom_y_offset;
 	data->x_min = (data->x_min) + zoom_x_offset;
@@ -66,10 +65,11 @@ double	zoom_out(t_draw *data)
 	double zoom_x_offset;
 	double zoom_y_offset;
 
-	zoom_x_offset = 100 * fabs((data->x_max - data->x_min) / WIDTH);
-	zoom_y_offset = 100 * fabs((data->x_max - data->x_min) / HEIGHT);
+	zoom_x_offset = 15 * fabs((data->x_max - data->x_min) / WIDTH);
+	zoom_y_offset = 15 * fabs((data->x_max - data->x_min) / HEIGHT);
 	data->x_max = (data->x_max) + zoom_x_offset;
 	data->y_min = (data->y_min) - zoom_y_offset;
 	data->x_min = (data->x_min) - zoom_x_offset;
 	data->y_max = (data->y_max) + zoom_y_offset;
+	return (0);
 }

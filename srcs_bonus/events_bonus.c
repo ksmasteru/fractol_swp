@@ -2,6 +2,8 @@
 
 int	mouse_event(int button, int x, int y, t_draw *data)
 {
+	x++;
+	y++;
 	if (button == 5 || button == 4)
 	{
 		if (button == 5)
@@ -111,10 +113,11 @@ double	zoom_in_bonus(int x, int y, int button, t_draw *data)
 	double	y_min_ratio;
 	double	y_max_ratio;
 
-	x_max_ratio = get_x_max_ratio(data, x, y);
-	x_min_ratio = get_x_min_ratio(data, x, y);
-	y_min_ratio = get_y_min_ratio(data, x, y);
-	y_max_ratio = get_y_max_ratio(data, x, y);
+	button++;
+	x_max_ratio = get_x_max_ratio(x);
+	x_min_ratio = get_x_min_ratio(x);
+	y_min_ratio = get_y_min_ratio(y);
+	y_max_ratio = get_y_max_ratio(y);
 	x_max_offset = 20 * x_max_ratio * fabs((data->x_max - data->x_min) / WIDTH);
 	x_min_offset = 20 * x_min_ratio * fabs((data->x_max - data->x_min) / WIDTH);
 	y_min_offset = 20 * y_max_ratio * fabs((data->y_max - data->y_min)
