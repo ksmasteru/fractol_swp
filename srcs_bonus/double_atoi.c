@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   double_atoi.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hes-saqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/06 08:49:31 by hes-saqu          #+#    #+#             */
+/*   Updated: 2024/05/06 08:49:43 by hes-saqu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/fractol.h"
 
 void	handle_atoi_error(void)
@@ -28,6 +40,7 @@ double	get_atoi_sign(char **str)
 	*str += i;
 	return (sign);
 }
+
 double	get_be_point_val(char **str, double *af_point_val)
 {
 	double	be_point_val;
@@ -82,10 +95,10 @@ double	get_af_point_val(char *str)
 
 double	d_atoi(char *str)
 {
-	double be_point_val;
-	double af_point_val;
-	double sign;
-	double res;
+	double	be_point_val;
+	double	af_point_val;
+	double	sign;
+	double	res;
 
 	res = 0;
 	af_point_val = -1;

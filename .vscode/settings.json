@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "fractol.h": "c"
+        "fractol.h": "c",
+        "limits.h": "c"
     }
 }

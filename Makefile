@@ -8,6 +8,7 @@ SRCS		=	srcs/events.c \
 				srcs/double_atoi.c \
 				srcs/julia_set.c	\
 				srcs/mandelbrot.c \
+				srcs/mlx_utils.c \
 				srcs/main.c
 SRCS_B		= 	srcs_bonus/main_bonus.c \
 				srcs_bonus/mandelbrot_bonus.c \
@@ -15,6 +16,9 @@ SRCS_B		= 	srcs_bonus/main_bonus.c \
 				srcs_bonus/julia_set_bonus.c \
 				srcs_bonus/events_bonus.c \
 				srcs_bonus/double_atoi.c	\
+				srcs_bonus/mlx_utils_bonus.c	\
+				srcs_bonus/zoom_events.c	\
+				srcs_bonus/zoom_ratio.c	\
 				srcs_bonus/burningship.c
 
 NAME		= fractol
@@ -36,7 +40,7 @@ $(OBJS_DIR)%.o : %.c includes/fractol.h
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 
 $(OBJS_DIR_B)%.o : %.c includes/fractol.h
-	@mkdir -p $(OBJS_DIR_B)
+	@mkdir -p $(OBJS_DIR_B)	
 	@mkdir -p $(OBJS_DIR_B)srcs_bonus
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   burningship.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hes-saqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/06 08:59:13 by hes-saqu          #+#    #+#             */
+/*   Updated: 2024/05/06 08:59:15 by hes-saqu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/fractol.h"
 
-int	color_value_burningShip(t_draw *data)
+int	color_value_burningship(t_draw *data)
 {
 	int			i;
 	t_complex	temp_z;
@@ -25,16 +37,15 @@ int	color_value_burningShip(t_draw *data)
 	return (i);
 }
 
-int	burningShip(t_draw *data)
+int	burningship(t_draw *data)
 {
-	int x;
-	int y;
-	int i;
-	char *pixel;
-	int a;
-	int color;
+	int		x;
+	int		y;
+	int		i;
+	char	*pixel;
+	int		color;
 
-	data->is_burningShip++;
+	data->is_burningship++;
 	i = -1;
 	while (++i <= HEIGHT * WIDTH)
 	{
@@ -44,8 +55,8 @@ int	burningShip(t_draw *data)
 				/ (double)HEIGHT * y);
 		data->c.real = data->x_min + ((data->x_max - data->x_min)
 				/ (double)WIDTH * x);
-		a = color_value_burningShip(data);
-		color = ((double)a / 100) * 0x00ff00 * 2;
+		color = color_value_burningship(data);
+		color = ((double)color / 100) * 0x00ff00 * 2;
 		pixel = data->img.addrs + data->img.size_line * y + x * (data->img.bpp
 				/ 8);
 		*(int *)pixel = color;
